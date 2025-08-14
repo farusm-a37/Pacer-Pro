@@ -1,0 +1,6 @@
+_sourceCategory=prod/web/api AND url="/api/data"
+| parse "response_time=*s" as response_time
+| where toNumber(response_time) > 3
+| timeslice by 1m
+| count by _timeslice
+| where _count > 5
